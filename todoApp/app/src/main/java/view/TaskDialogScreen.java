@@ -22,12 +22,14 @@ public class TaskDialogScreen extends javax.swing.JDialog {
     
     // criando uma variavel que vai gerenciar o projeto dono dessa tarefa
     Project project;
+    int idTaskUpdate = 0;
     
     public TaskDialogScreen(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         hideErrorFields();
         controller = new TaskController();
+        
     }
 
     /**
@@ -330,6 +332,17 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         }
     }
     
-    
+    public void loadFields(Task task) {
+
+        jTextFieldName.setText(task.getName());
+        jTextAreaDescription.setText(task.getDescription());
+        jTextAreaNotes.setText(task.getNotes());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        jFormattedTextFieldDeadline.setText(dateFormat.format(task.getDeadLine()));
+        idTaskUpdate = task.getId();
+
+    }
     
 }

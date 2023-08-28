@@ -123,10 +123,10 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelToolBarTitle" pref="628" max="32767" attributes="0"/>
+                      <Component id="jLabelToolBarTitle" max="32767" attributes="0"/>
                       <Component id="jLabelToolBarSubTitle" min="-2" pref="506" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="129" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

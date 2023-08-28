@@ -12,6 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import model.Project;
 import model.Task;
 import util.ButtonColumnCellRederer;
@@ -363,6 +364,7 @@ public class MainScreen extends javax.swing.JFrame {
                     taskController.update(task);
                     break;
             case 4:
+                    updateTask(task);
                     break;
             case 5:
                     taskController.removeById(task.getId());
@@ -541,6 +543,30 @@ public class MainScreen extends javax.swing.JFrame {
             projectsModel.addElement(project);
         }
         jListProjects.setModel(projectsModel);
+    }
+    
+    // função para editar tarefa
+    private void updateTask(Task task) {
+
+        TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
+
+        int projectIndex = jListProjects.getSelectedIndex();
+        Project project = (Project) projectsModel.get(projectIndex);
+        taskDialogScreen.setProject(project);
+
+        taskDialogScreen.loadFields(task);
+        taskDialogScreen.setVisible(true);
+        
+        taskDialogScreen.addWindowListener(new WindowAdapter() {
+            public void windowClosed(WindowEvent e) {
+                int projectIndex = jListProjects.getSelectedIndex();
+                Project project = (Project) projectsModel.get(projectIndex);
+                
+                loadTasks(project.getId());
+            }
+        });
+        
+
     }
     
 }

@@ -54,17 +54,6 @@ public class TaskController {
     }
     public void update(Task task) {
         
-//        UPDATE `tasks` SET 
-//                `id`='[value-1]',
-//                `idProject`='[value-2]',
-//                `name`='[value-3]',
-//                `description`='[value-4]',
-//                `completed`='[value-5]',
-//                `notes`='[value-6]',
-//                `deadline`='[value-7]',
-//                `createdAt`='[value-8]',
-//                `updatedAt`='[value-9]' WHERE 1
-        
         String  sql =   "UPDATE tasks SET "
                     +   "idProject = ?, "
                     +   "name = ?, "
@@ -97,17 +86,7 @@ public class TaskController {
             statement.setDate(6, new Date(task.getDeadLine().getTime()));
             statement.setDate(7, new Date(task.getCreatedAt().getTime()));
             statement.setDate(8, new Date(task.getUpdatedAt().getTime()));
-            statement.setInt(9, task.getId());
-//            statement.setInt(1, task.getId());
-//            statement.setInt(2, task.getIdProject());
-//            statement.setString(3, task.getName());
-//            statement.setString(4, task.getDescription());
-//            statement.setString(5, task.getNotes());
-//            statement.setBoolean(6, task.isIsCompleted());
-//            statement.setDate(7, new Date(task.getDeadLine().getTime()));
-//            statement.setDate(8, new Date(task.getCreatedAt().getTime()));
-//            statement.setDate(9, new Date(task.getUpdatedAt().getTime()));
-//            
+            statement.setInt(9, task.getId());      
             // executando a querye
             statement.execute();
             
