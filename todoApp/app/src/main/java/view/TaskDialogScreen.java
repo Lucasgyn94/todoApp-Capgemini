@@ -16,7 +16,10 @@ import model.Task;
  * @author Admin
  */
 public class TaskDialogScreen extends javax.swing.JDialog {
-
+    
+    private boolean updateMode = false; // Campo para rastrear o modo de atualização
+    private boolean taskUpdated = false; // Campo para rastrear se a tarefa foi atualizada
+    
     // criando nossa variavel controller para gerenciar o banco de dados
     TaskController controller;
     
@@ -234,8 +237,19 @@ public class TaskDialogScreen extends javax.swing.JDialog {
                 deadline = dateFormat.parse(jFormattedTextFieldDeadline.getText());
                 task.setDeadLine(deadline);
 
-                controller.save(task);
-
+                //controller.save(task);
+                
+                // adicionando em 13.09
+                if (updateMode) {
+                    // Se estiver no modo de atualização, atualize a tarefa existente
+                    task.setId(idTaskUpdate);
+                    controller.update(task);
+                    taskUpdated = true; // Defina como verdadeiro para indicar que a tarefa foi atualizada
+                } else {
+                    // Se não estiver no modo de atualização, salve uma nova tarefa
+                    controller.save(task);
+                }
+                
                 JOptionPane.showMessageDialog(rootPane, "Tarefa salva com sucesso!");
                 this.dispose();
             } else {
@@ -343,6 +357,15 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         jFormattedTextFieldDeadline.setText(dateFormat.format(task.getDeadLine()));
         idTaskUpdate = task.getId();
 
+    }
+    
+    
+     public void setUpdateMode(boolean updateMode) {
+        this.updateMode = updateMode;
+    }
+
+    public boolean isTaskUpdated() {
+        return taskUpdated;
     }
     
 }

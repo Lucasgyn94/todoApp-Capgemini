@@ -546,6 +546,7 @@ public class MainScreen extends javax.swing.JFrame {
     }
     
     // função para editar tarefa
+    /*
     private void updateTask(Task task) {
 
         TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
@@ -561,12 +562,36 @@ public class MainScreen extends javax.swing.JFrame {
             public void windowClosed(WindowEvent e) {
                 int projectIndex = jListProjects.getSelectedIndex();
                 Project project = (Project) projectsModel.get(projectIndex);
+        
                 
                 loadTasks(project.getId());
             }
         });
-        
-
     }
+*/
+private void updateTask(Task task) {
+    TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
+    
+    int projectIndex = jListProjects.getSelectedIndex();
+    Project project = (Project) projectsModel.get(projectIndex);
+    taskDialogScreen.setProject(project);
+    
+    taskDialogScreen.loadFields(task); // Carrega os campos da tarefa existente
+    taskDialogScreen.setUpdateMode(true); // Define o modo de atualização como verdadeiro
+    taskDialogScreen.setVisible(true);
+    
+    taskDialogScreen.addWindowListener(new WindowAdapter() {
+        public void windowClosed(WindowEvent e) {
+            int projectIndex = jListProjects.getSelectedIndex();
+            Project project = (Project) projectsModel.get(projectIndex);
+            
+            if (taskDialogScreen.isTaskUpdated()) {
+                loadTasks(project.getId()); // Recarrega as tarefas do projeto apenas se a tarefa foi atualizada
+            }
+        }
+    });
+}
+
+
     
 }
